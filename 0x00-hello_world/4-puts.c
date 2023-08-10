@@ -8,7 +8,7 @@
 
 int main(void)
 {
-	char msg[] = "with proper grammar, but the outcome is a piece of art,";
+	char msg[] = "\"Programming is like building a multilingual puzzle";
 	puts(msg);
 	return (0);
 }
