@@ -7,7 +7,7 @@
   */
 int main(void)
 {
-	unsigned int n;
+	unsigned int n = 0;
 
 	while (n < 10)
 	{
