@@ -1,9 +1,9 @@
 # include "main.h"
 
 /**
-  *main - prints single char with _putchar function
+  * main - prints single char with _putchar function
   *
-  * Returns: 0
+  * Return: 0
   */
 int main(void)
 {
