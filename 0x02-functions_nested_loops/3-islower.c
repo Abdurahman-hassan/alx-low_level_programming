@@ -3,7 +3,7 @@
 /**
   * _islower - checks for lowercase character.
   *
-  * @c the number of character in ASCI
+  * @c: the number of character in ASCI
   * Return: 1 if c is lowercase
   * And 0 in otherwise
   */
