@@ -75,7 +75,7 @@ int main(void)
 	printf("%d\n", r);   	
 	
      **
-*/
+
 	int r;
 
 	print_last_digit(98);
@@ -83,6 +83,9 @@ int main(void)
     	r = print_last_digit(-1024);
     	_putchar('0' + r);
     	_putchar('\n');
+**/
 	
+	jack_bauer();
+
 	return (0);
 }
