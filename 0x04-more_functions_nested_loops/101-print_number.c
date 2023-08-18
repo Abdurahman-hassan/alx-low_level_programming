@@ -14,6 +14,10 @@ void print_number(int n)
 		_putchar('-');
 		n = -n;
 	}
+	else
+	{
+		n = n;
+	}
 
 	/* Print the digits recursively */
 	if (n / 10)
