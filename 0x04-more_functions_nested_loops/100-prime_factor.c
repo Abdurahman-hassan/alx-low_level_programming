@@ -1,11 +1,12 @@
 #include <stdio.h>
 
 /**
-  * find_next_prime_factor - This function find_next_prime_factor
-  * @num: the number
-  * @start: The starter number
-  * Return: divisor
-  */
+ * find_next_prime_factor - Find smallest prime factor of a number.
+ * @num: The number to find the prime factor for.
+ * @start: Starting divisor for the search.
+ *
+ * Return: The smallest prime factor or -1 if none found.
+ */
 long find_next_prime_factor(long num, long start)
 {
 	long divisor = start;
@@ -13,20 +14,16 @@ long find_next_prime_factor(long num, long start)
 	while (divisor <= num)
 	{
 		if (num % divisor == 0)
-		{
 			return (divisor);
-		}
 		divisor++;
 	}
 	return (-1);
 }
 
 /**
-  * print_prime_factors - This is print_prime_factors
-  *
-  * @num: this is the number
-  * Return: The number
-  */
+ * print_prime_factors - Print prime factors of a number.
+ * @num: The number to print prime factors for.
+ */
 void print_prime_factors(long num)
 {
 	long divisor = 2;
@@ -51,13 +48,9 @@ void print_prime_factors(long num)
 		if (printedFactors > 0)
 		{
 			if (printedFactors + 1 == factorCount)
-			{
-				printf(" and ");
-			}
+				printf(", and ");
 			else
-			{
 				printf(", ");
-			}
 		}
 		printf("%ld", divisor);
 		printedFactors++;
@@ -67,10 +60,10 @@ void print_prime_factors(long num)
 }
 
 /**
-  * main - This is the entry point
-  *
-  * Return: 0 if success
-  */
+ * main - Entry point of the program.
+ *
+ * Return: 0 on success.
+ */
 int main(void)
 {
 	long num = 612852475143;
