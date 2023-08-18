@@ -1,31 +1,30 @@
 #include "main.h"
 
 /**
- * print_number - Recursively prints an integer.
- * @n: Integer to be printed.
- */
+  * print_number - to print the integer numbers
+  * @n: is the number to check
+  * Return: the integer
+  */
 void print_number(int n)
 {
-	unsigned int n1;
-
-	/* Convert negative numbers to positive and print the negative sign. */
-	if (n < 0)
+	/* Handle the special edge case for the smallest negative integer */
+	if (n == -2147483648)
 	{
 		_putchar('-');
-		n1 = -n;
-	}
-	else
-	{
-		n1 = n;
+		_putchar('2');
+		n = 147483648;
 	}
 
-	/* If there's more than one digit, print the higher order digit(s). */
-	if (n1 / 10)
+	/* If the number is negative, print '-' and use positive part */
+	else if (n < 0)
 	{
-		print_number(n1 / 10);
+		_putchar('-');
+		n = -n;
 	}
 
-	/* Print the least significant digit. */
-	_putchar((n1 % 10) + '0');
+	/* Recursively print the number */
+	if (n / 10)
+		print_number(n / 10);
+	_putchar((n % 10) + '0');
 }
 
