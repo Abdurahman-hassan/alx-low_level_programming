@@ -10,9 +10,9 @@ void print_number(int n)
 {
 	/* Handle negative numbers by printing '-' and making the number positive */
 	if (n < 0)
-	{
-		_putchar('-');
+	{	
 		n = -n;
+		_putchar('-');
 	}
 	else
 	{
