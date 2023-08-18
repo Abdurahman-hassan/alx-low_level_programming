@@ -56,7 +56,7 @@ void print_prime_factors(long num)
 		printedFactors++;
 		num /= divisor;
 	}
-	printf(".\n");
+	printf("\n");
 }
 
 /**
