@@ -2,7 +2,7 @@
 
 /**
   * _strlen - return the length of string
-  * @*s: the pointer to the first char in arr
+  * @s: the pointer to the first char in arr
   * Return: the length
   */
 int _strlen(char *s)
