@@ -26,17 +26,14 @@ int _atoi(char *s)
 
 			/* If the next char is not a number, break out of the loop */
 			if (!(*(s + 1) >= '0' && *(s + 1) <= '9'))
-                		break;
-        	}
-		else if (started) 
+				break;
+		}
+		else if (started)
 		{
-		/* If number conversion had started and current char is not a number */
+			/* If number conversion had started and current char is not a number */
 			break;
 		}
-		
 		s++;
 	}
-	
 	return (result);
 }
-
