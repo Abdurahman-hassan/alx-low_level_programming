@@ -3,38 +3,37 @@
 #include <time.h>
 
 /**
- * main - Generates random passwords for the program 101-crackme, ensuring
- * the sum of ASCII values equals 2772.
+ * main - Program that generates random valid
+ * passwords for the program 101-crackme
  *
  * Return: Always 0 (Success)
  */
 int main(void)
 {
-    const int MAX_SIZE = 100;
-    const char ASCII_OFFSET = '0';
-    const int TARGET_SUM = 2772;
+    int rand_pass[100]; /* Array to store random password components */
+    int index, total_sum, num; /* Renamed variables */
 
-    int current_sum = 0;
-    int required_val, random_val;
-    int i;
+    total_sum = 0;	
 
-    srand(time(NULL));  /* Seed the random number generator */
+    srand(time(NULL)); /* Initialize random seed */
 
-    for (i = 0; i < MAX_SIZE; i++)
+    /* Loop to generate random password components */
+    for (index = 0; index < 100; index++)
     {
-        random_val = rand() % 78;  /* Generate a random value between 0 and 77 */
-        current_sum += (random_val + ASCII_OFFSET);
+        rand_pass[index] = rand() % 78; /* Generate random number between 0 and 77 */
+        total_sum += (rand_pass[index] + '0'); /* Update the ASCII sum */
+        putchar(rand_pass[index] + '0'); /* Print the current password component */
 
-        /* If adding another random character can exceed TARGET_SUM, adjust the value */
-        required_val = TARGET_SUM - current_sum;
-        if (required_val < 78)
+        /* Check if the remaining sum to reach 2772 is less than 78 */
+        if ((2772 - total_sum) - '0' < 78)
         {
-            printf("%c", required_val + ASCII_OFFSET);
+            num = 2772 - total_sum - '0'; /* Calculate the required number to reach the sum of 2772 */
+            total_sum += num; /* Update the total sum */
+            putchar(num + '0'); /* Print the final password component */
             break;
         }
-
-        printf("%c", random_val + ASCII_OFFSET);
     }
 
-    return 0;
+    return (0);
 }
+
