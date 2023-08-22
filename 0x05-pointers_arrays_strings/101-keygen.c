@@ -11,13 +11,13 @@
  */
 int is_valid_ascii(int value) {
     // Check if value corresponds to valid character ranges
-    return (value >= 48 && value <= 57)   ||  // digits
-           (value >= 65 && value <= 90)   ||  // uppercase letters
-           (value >= 97 && value <= 122)  ||  // lowercase letters
-           (value >= 33 && value <= 47)   ||  // symbols
-           (value >= 58 && value <= 64)   ||  // symbols
-           (value >= 91 && value <= 96)   ||  // symbols
-           (value >= 123 && value <= 126);   // symbols
+    return (value >= 48 && value <= 57)   ||
+           (value >= 65 && value <= 90)   ||  
+           (value >= 97 && value <= 122)  ||  
+           (value >= 33 && value <= 47)   ||  
+           (value >= 58 && value <= 64)   || 
+           (value >= 91 && value <= 96)   || 
+           (value >= 123 && value <= 126);
 }
 
 /**
