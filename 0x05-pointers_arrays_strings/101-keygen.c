@@ -10,7 +10,6 @@
   * Return: 0 if success
  */
 int is_valid_ascii(int value) {
-    // Check if value corresponds to valid character ranges
     return (value >= 48 && value <= 57)   ||
            (value >= 65 && value <= 90)   ||  
            (value >= 97 && value <= 122)  ||  
@@ -26,16 +25,17 @@ int is_valid_ascii(int value) {
  */
 int main(void)
 {
-    char password[PASSWORD_LENGTH + 1]; // +1 for null terminator
+	/* +1 for null terminator */
+    char password[PASSWORD_LENGTH + 1];
     int i, ascii_value;
 
-    srand(time(NULL)); // seed random number generator
+    srand(time(NULL)); /*seed random number generator*/
 
     for (i = 0; i < PASSWORD_LENGTH; i++)
     {
         do {
-            ascii_value = rand() % 127; // Generate random ASCII value between 0 and 126
-        } while (!is_valid_ascii(ascii_value)); // Ensure it's a valid character
+            ascii_value = rand() % 127; /* Generate random ASCII value between 0 and 126 */
+        } while (!is_valid_ascii(ascii_value)); /*Ensure it's a valid character*/
 
         password[i] = (char)ascii_value;
     }
