@@ -2,46 +2,39 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define PASSWORD_LENGTH 10
-
-/* 
- * is_valid_ascii - checks if the given ASCII value corresponds to a valid character 
- * @value: the ASCII value to check 
- * Return: 1 if valid, 0 otherwise 
- */
-int is_valid_ascii(int value) {
-    return (value >= 48 && value <= 57)   || 
-           (value >= 65 && value <= 90)   || 
-           (value >= 97 && value <= 122)  || 
-           (value >= 33 && value <= 47)   || 
-           (value >= 58 && value <= 64)   || 
-           (value >= 91 && value <= 96)   || 
-           (value >= 123 && value <= 126);   
-}
-
-/* 
- * main - main function to generate a password 
- * Return: 0 if successful 
+/**
+ * main - Generates random passwords for the program 101-crackme, ensuring
+ * the sum of ASCII values equals 2772.
+ *
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
-    char password[PASSWORD_LENGTH + 1]; /* +1 for null terminator */
-    int i, ascii_value;
+    const int MAX_SIZE = 100;
+    const char ASCII_OFFSET = '0';
+    const int TARGET_SUM = 2772;
 
-    srand(time(NULL)); /* Seed random number generator */
+    int current_sum = 0;
+    int required_val, random_val;
+    int i;
 
-    for (i = 0; i < PASSWORD_LENGTH; i++)
+    srand(time(NULL));  /* Seed the random number generator */
+
+    for (i = 0; i < MAX_SIZE; i++)
     {
-        do {
-            ascii_value = rand() % 127; /* Generate ASCII value between 0 and 126 */
-        } while (!is_valid_ascii(ascii_value));
+        random_val = rand() % 78;  /* Generate a random value between 0 and 77 */
+        current_sum += (random_val + ASCII_OFFSET);
 
-        password[i] = (char)ascii_value;
+        /* If adding another random character can exceed TARGET_SUM, adjust the value */
+        required_val = TARGET_SUM - current_sum;
+        if (required_val < 78)
+        {
+            printf("%c", required_val + ASCII_OFFSET);
+            break;
+        }
+
+        printf("%c", random_val + ASCII_OFFSET);
     }
-
-    password[PASSWORD_LENGTH] = '\0'; /* Null terminate the password string */
-
-    printf("%s\n", password);
 
     return 0;
 }
