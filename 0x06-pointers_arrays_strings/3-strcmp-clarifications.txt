@@ -1,0 +1,19 @@
+*s1: This checks if the current character in s1 is not the null terminator (end of the string). If it is the end, the loop will stop.
+(*s1 == *s2): This checks if the current characters of s1 and s2 are the same.
+If both conditions are true, the loop increments both pointers (s1 and s2) to move to the next characters in the strings. This continues until either the end of one of the strings is reached or a mismatched character is found.
+
+Once the loop finishes (either because a difference was found or one of the strings ended), this line calculates and returns the difference:
+
+*(unsigned char *)s1 and *(unsigned char *)s2: These fetch the ASCII values of the current characters from the strings s1 and s2. We use (unsigned char *) to ensure that the difference calculation is correct even for characters with high ASCII values.
+The difference between the ASCII values of these characters is then returned. If the characters are the same, the difference is 0.
+In summary, this _strcmp function compares two strings character by character. If it finds a mismatch, it returns the difference of the ASCII values of the mismatched characters. If one string is a prefix of the other (e.g., "Hello" and "Hello, World!"), the difference of their lengths (in terms of ASCII values of the null terminator and the next character of the longer string) is returned. If the strings are identical, the function returns 0.
+
+*(unsigned char )s1:
+This is a type casting. We're taking the pointer s1 and treating it as if it's pointing to an unsigned char instead of a plain char. Why do we do this?
+
+In C, the char type can be either signed or unsigned depending on the platform. If it's signed, it can represent negative values. When comparing characters with high ASCII values, we might run into issues if we treat them as signed values. By casting the pointer to unsigned char *, we ensure that the character's value is treated as a positive number between 0 and 255.
+
+**(unsigned char )s1:
+After casting the pointer, we dereference it using the * operator. Dereferencing means we're accessing the value that the pointer is pointing to. In this context, it gives us the ASCII value of the current character in the string s1, treated as an unsigned value.
+
+So, *(unsigned char *)s1 effectively gives us the positive ASCII value of the current character in the string s1. We do a similar operation for s2 to get its current character's ASCII value. The difference between these two values is what the function returns when the two characters are not the same.
