@@ -1,0 +1,33 @@
+Understanding Memory Layout and Pointer Arithmetic:
+
+When you define local variables inside a function, they are typically allocated in the stack memory, which is a region of memory that stores local variables, function parameters, and control information.
+
+In the code you provided, you have:
+
+An integer n.
+An integer array a of size 5.
+A pointer p.
+The memory layout might look something like this:
+
+Memory:  | ... | a[4] | a[3] | a[2] | a[1] | a[0] | n | ...
+Address: | ... | p+6  | p+5  | p+4  | p+3  | p+2  | p | ...
+In this visualization:
+
+Variables are contiguous in memory.
+The array a is stored in reverse order because the stack grows downwards on most systems.
+How The Code Works:
+
+a[2] is initialized to 1024.
+p is assigned the address of n.
+The statement *(p + 5) = 98;
+modifies the value in memory 5 positions after n. 
+Given our memory layout visualization, this corresponds to a[3]. 
+However, on your specific system and compiler setup, the layout happens to be such that it modifies a[2], setting its value to 98.
+Why This Behavior Is Not Guaranteed:
+
+Memory Layout Variability: The order in which the compiler places local variables in memory can vary. It's up to the compiler to decide this order.
+Optimizations: Compilers often perform optimizations. Depending on the optimization level, the behavior might change.
+Architecture & Compiler Differences: Memory layout can differ between architectures (e.g., x86 vs. ARM) or even different compiler versions.
+
+Conclusion:
+While this approach might work on your specific system and with your specific compiler, it's not guaranteed to produce the same result everywhere. Always be cautious when making assumptions about memory layout in C. It's considered good practice to avoid such memory tricks because they lead to non-portable and potentially unsafe code.
