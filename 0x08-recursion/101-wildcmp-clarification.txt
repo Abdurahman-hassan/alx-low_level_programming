@@ -1,0 +1,91 @@
+The goal of the wildcmp function is to determine if two strings can be considered identical. The twist is that one of the strings (s2) can contain the wildcard character * which can replace any string (including an empty string).
+
+Logic:
+
+If you reach the end of both strings simultaneously, then it's a match.
+If you're at a character in s2 which is *, there are two choices:
+Skip the * and continue comparing.
+Keep the * in place and move to the next character in s1.
+If you have a character match, simply progress to the next character in both strings.
+If none of the above applies, it's not a match.
+Example:
+Let's take s1 = "main.c" and s2 = "m*c":
+
+Both strings start with m, so move to the next character in both strings. Now, s1 is at a and s2 is at *.
+
+s2 is at *, so there are two choices:
+
+Skip the * and compare a with c. They're not the same, so this choice doesn't work.
+Or, consider * as representing the character a, and move to the next character in s1. This means we're now comparing in.c in s1 to *c in s2.
+Now again, s2 is at *. Again, two choices:
+
+Skip the * and compare i with c. Not a match.
+Consider * as representing the character i, and move to the next character in s1. Now, s1 is at n.c and s2 is still at *c.
+Repeat the process:
+
+Consider * as representing n, and move to the next character in s1. Now, s1 is at .c and s2 is still at *c.
+Further, consider * as representing ., and move to the next character in s1. Now, s1 is at c and s2 is still at *c.
+Now, skip the * and compare c from s1 with c from s2. They're the same!
+Move to the next character, and both strings are at their end, so it's a match!
+
+It's like a maze where you're trying all possible paths (recursive calls) until you find the right one (a match) or exhaust all options (not a match). The recursion helps because each time you encounter *, you divide your problem into two new paths (skip the * or use it) and then tackle each smaller problem recursively
+
+___________________________
+
+
+Let's consider the wildcmp_recursion function.
+
+If both strings reach their end (i.e., both are empty), we have a match.
+	if (*s1 == '\0' && *s2 == '\0') /* Both strings are empty */
+		return (1);  /* They match */
+Example:
+s1 = "", s2 = "" would return 1.
+
+If the current characters of the strings match, simply move on to the next character of both strings.
+	if (*s1 == *s2)
+		return (wildcmp_recursion(s1 + 1, s2 + 1));
+Example:
+s1 = "abc", s2 = "abc" would proceed to check s1 = "bc" and s2 = "bc".
+
+If the current character in s2 is a *, there are two main possibilities:
+a. Consider * as representing zero characters from s1. So, just skip * and proceed.
+b. Consider * as representing the current character of s1 (or more). So, move to the next character in s1, but stay on the * in s2.
+	if (*s2 == '*')
+	{
+		if (*(s2 + 1) == '*')   /* If we have two consecutive '*', just skip one */
+			return (wildcmp_recursion(s1, s2 + 1));
+
+		/* Either use '*' to represent zero characters or at least one character */
+		if (wildcmp_recursion(s1 + 1, s2) || wildcmp_recursion(s1, s2 + 1))
+			return (1);
+	}
+
+
+Examples:
+
+For s1 = "abcd", s2 = "*cd", it would try:
+
+Using * as zero characters and check s1 = "abcd", s2 = "cd". (This doesn't match.)
+Using * as one character (i.e., a) and check s1 = "bcd", s2 = "*cd". (This matches.)
+For s1 = "abc", s2 = "**c", it would first skip one * and then:
+
+Use the next * as zero characters and check s1 = "abc", s2 = "*c".
+Use the next * to represent at least one character and check s1 = "bc", s2 = "*c".
+And so on...
+If none of the above conditions are met, return 0.
+	return (0);
+
+
+A deeper example:
+
+Consider s1 = "main.c", s2 = "m*c".
+First, m matches m. Move on.
+Now, a does not match *, but * can represent any string.
+Consider * as zero characters: s1 = "ain.c", s2 = "c". Doesn't match.
+Consider * as a: s1 = "in.c", s2 = "*c".
+i doesn't match *, but again * can represent any string.
+Consider this * as i: s1 = "n.c", s2 = "*c".
+Continue this until we get s1 = ".c", s2 = "c".
+This is a match.
+If it hadn't matched, we'd also consider the possibility of the * representing in, in., and so on.
+.
