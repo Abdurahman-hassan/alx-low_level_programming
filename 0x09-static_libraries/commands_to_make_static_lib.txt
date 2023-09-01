@@ -1,0 +1,7 @@
+gcc -c -Wall -Werror -Wextra *.c
+ar -rc libname.a *.o
+ranlib libname.a
+ar -rcs libname.a *.o
+gcc main.c -L. -lname -o main
+https://dev.to/iamkhalil42/all-you-need-to-know-about-c-static-libraries-1o0b
+
