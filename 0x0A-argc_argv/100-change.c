@@ -3,6 +3,48 @@
 #include <ctype.h>
 
 /**
+ * is_valid_integer - Check if a string represents a valid integer.
+ * @input: String to check.
+ * Return: 1 if the string represents a valid integer, 0 otherwise.
+ */
+int is_valid_integer(char *input)
+{
+	int i;
+
+	for (i = 0; input[i] != '\0'; i++)
+	{
+		if (!isdigit(input[i]))
+		{
+			return (0);
+		}
+	}
+	return (1);
+}
+
+/**
+ * calculate_coins - Calculate the minimum number of coins needed to
+ * make change for a given amount of cents.
+ * @cents: Amount of cents.
+ * Return: The minimum number of coins needed.
+ */
+int calculate_coins(int cents)
+{
+	int quarters, dimes, nickels, pennies, total;
+
+	quarters = cents / 25;
+	cents %= 25;
+	dimes = cents / 10;
+	cents %= 10;
+	nickels = cents / 5;
+	cents %= 5;
+	pennies = cents;
+
+	total = quarters + dimes + nickels + pennies;
+
+	return (total);
+}
+
+/**
  * main - The entry point of the program.
  * @argc: The number of arguments passed to the program,
  *        including the program's name.
@@ -13,11 +55,9 @@
  */
 int main(int argc, char *argv[])
 {
-	int cents, quarters, dimes, nickels, pennies, total;
+	int cents, total;
 	char *input;
-	int i;
 
-	/* Check if the number of arguments is correct */
 	if (argc != 2)
 	{
 		printf("Error\n");
@@ -26,37 +66,21 @@ int main(int argc, char *argv[])
 
 	input = argv[1];
 
-	/* Check if the input is a valid integer */
-	for (i = 0; input[i] != '\0'; i++)
+	if (!is_valid_integer(input))
 	{
-		if (!isdigit(input[i]))
-		{
-			printf("Error\n");
-			return (1);
-		}
+		printf("Error\n");
+		return (1);
 	}
 
-	/* Convert the argument to an integer */
 	cents = atoi(input);
 
-	/* If the number of cents is negative, print 0 and return */
 	if (cents < 0)
 	{
 		printf("0\n");
 		return (0);
 	}
 
-	/* Calculate the number of coins needed */
-	quarters = cents / 25;
-	cents %= 25;
-	dimes = cents / 10;
-	cents %= 10;
-	nickels = cents / 5;
-	cents %= 5;
-	pennies = cents;
-
-	/* The total number of coins is the sum of all the coins calculated */
-	total = quarters + dimes + nickels + pennies;
+	total = calculate_coins(cents);
 
 	printf("%d\n", total);
 
