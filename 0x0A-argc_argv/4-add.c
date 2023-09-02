@@ -4,24 +4,19 @@
 
 /**
   * is_number - this function check that str is a number
-  * @str: the string that will be checked
+  * @c: the string that will be checked
   * return 0 if false and 1 if true
   */
-int is_number(char *str)
+int is_number(int c)
 {
-	int i = 0;
-
-	while (str[i])
+	if (c >= '0' && c <= '9')
 	{
-		if (str[i] < '0' || str[i] > '9')
-		{
-			return (0);
-		}
-
-		i++;
+		return (1);
 	}
-
-	return (1);
+	else
+	{
+		return (0);
+	}
 }
 
 /**
@@ -35,16 +30,19 @@ int is_number(char *str)
  */
 int main(int argc, char *argv[])
 {
-	int i, sum = 0;
+	int i, j, sum = 0;
 
 	/* First, check that all arguments are numbers */
 
 	for (i = 1; i < argc; i++)
 	{
-		if (!is_number(argv[i]))
+		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			printf("Error\n");
-			return (1);
+			if (!is_number(argv[i][j]))
+			{
+				printf("Error\n");
+				return (1);
+			}
 		}
 	}
 

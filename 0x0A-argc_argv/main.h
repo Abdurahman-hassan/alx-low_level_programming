@@ -2,6 +2,6 @@
 #define MAIN_H
 
 int _putchar(char c);
-int is_number(char *str);
+int is_number(int c);
 
 #endif /* MAIN_H */
