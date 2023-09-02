@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /**
  * main - The entry point of the program.
@@ -13,6 +14,8 @@
 int main(int argc, char *argv[])
 {
 	int cents, quarters, dimes, nickels, pennies, total;
+	char *input;
+	int i;
 
 	/* Check if the number of arguments is correct */
 	if (argc != 2)
@@ -21,8 +24,20 @@ int main(int argc, char *argv[])
 		return (1);
 	}
 
+	input = argv[1];
+
+	/* Check if the input is a valid integer */
+	for (i = 0; input[i] != '\0'; i++)
+	{
+		if (!isdigit(input[i]))
+		{
+			printf("Error\n");
+			return (1);
+		}
+	}
+
 	/* Convert the argument to an integer */
-	cents = atoi(argv[1]);
+	cents = atoi(input);
 
 	/* If the number of cents is negative, print 0 and return */
 	if (cents < 0)
