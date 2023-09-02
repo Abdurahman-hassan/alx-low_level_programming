@@ -37,17 +37,22 @@ int main(int argc, char *argv[])
 {
 	int i, sum = 0;
 
+	/* First, check that all arguments are numbers */
+
 	for (i = 1; i < argc; i++)
 	{
-		if (is_number(argv[i]))
-		{
-			sum += atoi(argv[i]);
-		}
-		else
+		if (!is_number(argv[i]))
 		{
 			printf("Error\n");
 			return (1);
 		}
+	}
+
+	/* Then, sum the arguments */
+
+	for (i = 1; i < argc; i++)
+	{
+		sum += atoi(argv[i]);
 	}
 
 	printf("%d\n", sum);
