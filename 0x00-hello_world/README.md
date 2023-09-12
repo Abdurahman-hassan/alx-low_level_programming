@@ -147,7 +147,7 @@ return (0);
 ```
 filename: [0-preprocessor](0-preprocessor)
 
-Repo:[0x00-hello_world]()
+Repo:[0x00-hello_world](#)
 ___
 
 1) Compiler
@@ -319,6 +319,7 @@ The output should include:
 100-intel       2-assembler  c       main.c  main.s
 ```
 File: [3-name](3-name)
+
 Repo:[0x00-hello_world](#)
 ___
 
@@ -428,7 +429,8 @@ echo $?
 0
 ```
 File: [6-size.c](6-size.c)
-Repo:[0x00-hello_world](0x00-hello_world)
+
+Repo:[0x00-hello_world](#)
 ___
 
 
@@ -493,7 +495,8 @@ main:
     .section    .note.GNU-stack,"",@progbits
 ```
 File: [100-intel](100-intel)
-Repo:[0x00-hello_world](0x00-hello_world)
+
+Repo:[0x00-hello_world](#)
 ___
 
 8. UNIX is basically a simple operating system, but you have to be a genius to understand the simplicity
