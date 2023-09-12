@@ -5,7 +5,7 @@
   * new_dog - function that creates a new dog.
   * @name: is the name of dog
   * @age: the age of dog
-  * owner: the name of the owner of the dog
+  * @owner: the name of the owner of the dog
   * Return: a pinter to a struct new_dog
   */
 dog_t *new_dog(char *name, float age, char *owner)
@@ -21,6 +21,6 @@ dog_t *new_dog(char *name, float age, char *owner)
 	(*ptr).owner = owner;
 	ptr->age = age;
 
-	return(ptr);
+	return (ptr);
 
 }
