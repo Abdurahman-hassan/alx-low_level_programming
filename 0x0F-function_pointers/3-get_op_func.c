@@ -34,7 +34,7 @@ int (*get_op_func(char *s))(int, int)
 		/* is NULL (or the end of the string). */
 		/* This ensures that the string 's' contains */
 		/* only one character, which is the operator. */
-		if (*s == *(ops[i].op) && !s[1])
+		if (strcmp(ops[i].op, s) == 0)
 			return (ops[i].f);  /* Return the matching function */
 		i++;
 	}
