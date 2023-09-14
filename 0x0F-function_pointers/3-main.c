@@ -11,7 +11,6 @@
 int main(int arg_count, char *arg_list[])
 {
 	int first_num, second_num, computed_result;
-	char operation_symbol;
 	int (*operation_function)(int, int);
 
 	if (arg_count != 4)
