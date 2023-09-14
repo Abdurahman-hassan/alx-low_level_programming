@@ -1,5 +1,4 @@
 #include "3-calc.h"
-#include <stddef.h>
 
 /**
  * get_op_func - Selects the correct function to perform the operation.
@@ -11,17 +10,18 @@ int (*get_op_func(char *s))(int, int)
 {
 	/* ops is an array of structures containing operator strings */
 	/* and their associated functions.*/
+	/* Sentinel value indicating the end of the array. */
 	op_t ops[] = {
 		{"+", op_add},
 		{"-", op_sub},
 		{"*", op_mul},
 		{"/", op_div},
 		{"%", op_mod},
-		/* Sentinel value indicating the end of the array. */
 		{NULL, NULL}
 	};
-	int i = 0;
+	int i;
 
+	i = 0;
 	/* Iterate over each structure in the ops array */
 	while (ops[i].op)
 	{
