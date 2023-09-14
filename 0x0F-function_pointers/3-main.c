@@ -1,5 +1,13 @@
 #include "3-calc.h"
 
+/**
+ * main - program that performs basic arithmetic operations.
+ * desired arithmetic operation on them. The function uses function pointers
+ * to dynamically choose the operation based on the user's input.
+ * @arg_count: number of arguments.
+ * @arg_list: array of arguments.
+ * Return: Always 0 (Success).
+ */
 int main(int arg_count, char *arg_list[])
 {
 	int first_num, second_num, computed_result;
@@ -35,5 +43,5 @@ int main(int arg_count, char *arg_list[])
 
 	printf("%d\n", computed_result);
 
-	return 0;
+	return (0);
 }
