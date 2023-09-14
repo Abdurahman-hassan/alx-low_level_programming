@@ -8,37 +8,30 @@
  */
 int (*get_op_func(char *s))(int, int)
 {
-	/* ops is an array of structures containing operator strings */
-	/* and their associated functions.*/
-	/* Sentinel value indicating the end of the array. */
+	/* Initialize an array of structures 'ops', where each element represents */
+	/* an arithmetic operation and its corresponding function. */
 	op_t ops[] = {
 		{"+", op_add},
 		{"-", op_sub},
 		{"*", op_mul},
 		{"/", op_div},
 		{"%", op_mod},
-		{NULL, NULL}
+		{NULL, NULL}  /* The end-marker for our array. */
 	};
-	int i;
+	int i = 0;
 
-	i = 0;
-	/* Iterate over each structure in the ops array */
+	/* Traverse the 'ops' array to find a matching operation. */
 	while (ops[i].op)
 	{
-		/* *s refers to the first character */
-		/* of the passed operator string. */
-		/* *(ops[i].op) refers to the first character */
-		/* of the current operator in the ops array. */
-		/* We're comparing them to see if they match. */
-		/* !s[1] checks if the second character of the string */
-		/* is NULL (or the end of the string). */
-		/* This ensures that the string 's' contains */
-		/* only one character, which is the operator. */
+		/* Check if the passed operator matches with the current */
+		/* operation in our 'ops' array. */
+		/* If a match is found, return its associated function. */
 		if (strcmp(ops[i].op, s) == 0)
-			return (ops[i].f);  /* Return the matching function */
+			return (ops[i].f);
 		i++;
 	}
-	/* If no matching operator was found in the ops array, */
-	/* return NULL. */
+
+	/* If loop completes without finding a match, return NULL. */
 	return (NULL);
 }
+
