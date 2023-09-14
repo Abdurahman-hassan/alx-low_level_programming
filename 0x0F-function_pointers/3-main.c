@@ -31,14 +31,6 @@ int main(int arg_count, char *arg_list[])
 		exit(99);
 	}
 
-	operation_symbol = *arg_list[2];
-
-	if ((operation_symbol == '/' || operation_symbol == '%') && second_num == 0)
-	{
-		printf("Error\n");
-		exit(100);
-	}
-
 	computed_result = operation_function(first_num, second_num);
 
 	printf("%d\n", computed_result);
