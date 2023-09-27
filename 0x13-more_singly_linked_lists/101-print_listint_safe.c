@@ -20,7 +20,7 @@ size_t print_listint_safe(const listint_t *head)
 
 		if (diff > 0)
 		/* Move to the next node if progressing normally */
-			head = head->next; 
+			head = head->next;
 		else
 		{
 			/* Detect the loop and print the loop's starting node */
