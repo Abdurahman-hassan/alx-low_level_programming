@@ -1,38 +1,6 @@
 #include "lists.h"
 
 /**
- * find_loop_start - find the start node of loop using Floyd's algorithm
- * @head: pointer to head of list
- * Return: start node of loop or NULL
- */
-listint_t *find_loop_start(listint_t *head)
-{
-	listint_t *tortoise, *hare;
-
-	tortoise = hare = head;
-
-	/* Detect a loop using the Floyd's cycle detection algorithm */
-	while (hare && hare->next)
-	{
-		tortoise = tortoise->next;
-		hare = hare->next->next;
-
-		if (tortoise == hare)
-		{
-			tortoise = head;
-			while (tortoise != hare)
-			{
-				tortoise = tortoise->next;
-				hare = hare->next;
-			}
-			return (hare);
-		}
-	}
-
-	return (NULL);
-}
-
-/**
  * print_listint_safe - prints a linked list, safely
  * @head: list of type listint_t to print
  *
@@ -40,43 +8,26 @@ listint_t *find_loop_start(listint_t *head)
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t count = 0;
-	listint_t *loop_start;
+	size_t count = 0;   /* Counter for the number of nodes printed */
+	/* To calculate the difference between current and next node addresses */
+	long int diff;
 
-	loop_start = find_loop_start((listint_t *)head);
-
-	if (!loop_start)
+	while (head)
 	{
-		/* No loop in the list */
-		while (head)
-		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			count++;
-			head = head->next;
-		}
-	}
-	else
-	{
-		/* List has a loop */
-		while (head != loop_start)
-		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			count++;
-			head = head->next;
-		}
+		diff = head - head->next;
+		count++;  /* Increment the node count */
+		printf("[%p] %d\n", (void *)head, head->n);
 
-		printf("-> [%p] %d\n", (void *)head, head->n);/* Start of the loop */
-		count++;
-		head = head->next;
-
-		while (head != loop_start)
-		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			count++;
+		if (diff > 0)
+			/* Move to the next node if progressing normally */
 			head = head->next;
+		else
+		{
+			/* Detect the loop and print the loop's starting node */
+			printf("-> [%p] %d\n", (void *)head->next, head->next->n);
+			break;  /* Exit the loop */
 		}
 	}
 
-	return (count);
+	return (count);  /* Return the total count of printed nodes */
 }
-
