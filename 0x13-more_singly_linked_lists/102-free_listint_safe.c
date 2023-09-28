@@ -1,69 +1,48 @@
 #include "lists.h"
 
 /**
- * free_auxlist - frees an auxiliary linked list.
- * @aux_head: head of the auxiliary list.
+ * print_listint_safe - prints a linked list, safely
+ * @head: list of type listint_t to print
  *
- * Return: no return.
- */
-void free_auxlist(aux_list_t **aux_head)
-{
-	aux_list_t *temp_node;
-	aux_list_t *current_node;
-
-	if (aux_head != NULL)
-	{
-		current_node = *aux_head;
-		while ((temp_node = current_node) != NULL)
-		{
-			current_node = current_node->next;
-			free(temp_node);
-		}
-		*aux_head = NULL;
-	}
-}
-
-/**
- * print_listint_safe - prints a linked list.
- * @head: head of the list.
- *
- * Return: number of nodes in the list.
+ * Return: number of nodes in the list
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t node_count = 0;
-	aux_list_t *aux_h, *aux_new, *aux_current;
+	const listint_t *tortoise, *hare;
+	size_t count = 0; /* Counter for the number of nodes printed */
 
-	aux_h = NULL;
-	while (head != NULL)
+	if (!head)
+		return (0);
+
+	tortoise = hare = head;
+
+	/* Check if a cycle exists */
+	while (hare && hare->next)
 	{
-		aux_new = malloc(sizeof(aux_list_t));
+		if (count > 0 && tortoise == hare)
+			break;
 
-		if (aux_new == NULL)
-			exit(98);
+		printf("[%p] %d\n", (void *)tortoise, tortoise->n);
+		tortoise = tortoise->next;
+		hare = hare->next->next;
+		count++;
 
-		aux_new->address = (void *)head;
-		aux_new->next = aux_h;
-		aux_h = aux_new;
-
-		aux_current = aux_h;
-
-		while (aux_current->next != NULL)
+		/* If hare and tortoise meet, cycle detected */
+		if (tortoise == hare && count > 0)
 		{
-			aux_current = aux_current->next;
-			if (head == aux_current->address)
-			{
-				printf("-> [%p] %d\n", (void *)head, head->n);
-				free_auxlist(&aux_h);
-				return (node_count);
-			}
+			printf("-> [%p] %d\n", (void *)tortoise, tortoise->n);
+			break;
 		}
-
-		printf("[%p] %d\n", (void *)head, head->n);
-		head = head->next;
-		node_count++;
 	}
 
-	free_auxlist(&aux_h);
-	return (node_count);
+	/* If no cycle was detected, print remaining nodes */
+	while (count == 0 && tortoise)
+	{
+		printf("[%p] %d\n", (void *)tortoise, tortoise->n);
+		tortoise = tortoise->next;
+		count++;
+	}
+
+	return (count);
 }
+
