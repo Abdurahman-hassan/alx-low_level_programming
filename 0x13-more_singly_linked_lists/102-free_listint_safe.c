@@ -1,67 +1,83 @@
 #include "lists.h"
+#include <stdlib.h>
+
+size_t looped_listint_len(const listint_t *head);
 
 /**
- * find_loop_start - find the start node of loop using Floyd's algorithm
- * @head: pointer to head of list
- * Return: start node of loop or NULL
+ * free_listint_safe - Frees a listint_t list.
+ * @h: A pointer to the address of the head of the list.
+ *
+ * Return: The size of the list that was free’d.
  */
-listint_t *find_loop_start(listint_t *head)
+size_t free_listint_safe(listint_t **h)
 {
-	listint_t *tortoise, *hare;
+	size_t count = 0, loop_nodes = 0;
+	listint_t *temp;
 
-	tortoise = hare = head;
+	if (!h || !*h)
+		return (0);
 
-	/* Detect a loop using the Floyd's cycle detection algorithm */
-	while (hare && hare->next)
+	loop_nodes = looped_listint_len(*h);
+
+	while (*h && (loop_nodes == 0 || count < loop_nodes))
 	{
-		tortoise = tortoise->next;
-		hare = hare->next->next;
+		temp = *h;
+		*h = (*h)->next;
+		free(temp);
+		count++;
+	}
 
+	*h = NULL; /* Set the head to NULL */
+
+	return (count);
+}
+
+/**
+ * looped_listint_len - Counts the number of unique nodes
+ *                      in a looped listint_t linked list.
+ * @head: A pointer to the head of the listint_t to check.
+ *
+ * Return: If the list is not looped - 0.
+ *         Otherwise - the number of unique nodes in the list.
+ */
+size_t looped_listint_len(const listint_t *head)
+{
+	const listint_t *tortoise, *hare;
+	size_t nodes = 1;
+
+	if (head == NULL || head->next == NULL)
+		return (0);
+
+	tortoise = head->next;
+	hare = (head->next)->next;
+
+	while (hare)
+	{
 		if (tortoise == hare)
 		{
 			tortoise = head;
 			while (tortoise != hare)
 			{
+				nodes++;
 				tortoise = tortoise->next;
 				hare = hare->next;
 			}
-			return (hare);
+
+			tortoise = tortoise->next;
+			while (tortoise != hare)
+			{
+				nodes++;
+				tortoise = tortoise->next;
+			}
+
+			return (nodes);
 		}
+
+		tortoise = tortoise->next;
+		hare = (hare->next)->next;
 	}
 
-	return (NULL);
+	return (0);
 }
 
-/**
- * free_listint_safe - frees a listint_t list safely
- * @h: pointer to a pointer to head of the list
- *
- * Return: the size of the list that was freed
- */
-size_t free_listint_safe(listint_t **h)
-{
-	size_t count = 0;
-	listint_t *loop_start, *next_node;
-
-	if (!h || !*h)
-		return (0);
-
-	loop_start = find_loop_start(*h);
-
-	while (*h && (loop_start != *h || count == 0))
-	{
-		next_node = (*h)->next;
-		free(*h);
-		*h = next_node;
-		count++;
-
-		/* If we've detected a loop, we want to stop */
-		/* once we circle back to the start of the loop. */
-		if (*h == loop_start && count != 0)
-			break;
-	}
-
-	*h = NULL; /* Set the head to NULL */
-	return (count);
-}
 
