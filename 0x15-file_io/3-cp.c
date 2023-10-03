@@ -47,9 +47,17 @@ int handle_files(char *src, char *dest)
 	}
 
 	dest_fd = open(dest, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (dest_fd < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't create/write to file %s\n", dest);
+		close(source_fd);  /* Close the source file before returning */
+		return (99);
+	}
+
 	if (copy_content(source_fd, dest_fd) == -1)
 	{
-		close(source_fd);
+		close(source_fd);  /* Ensure the source file descriptor is closed */
+		close(dest_fd);    /* Also close the destination file descriptor*/
 		return (99);
 	}
 
@@ -79,15 +87,13 @@ int handle_files(char *src, char *dest)
  */
 int main(int argc, char *argv[])
 {
-	int status;
-
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
-	status = handle_files(argv[1], argv[2]);
+	int status = handle_files(argv[1], argv[2]);
 
 	if (status != 0)
 		exit(status);
