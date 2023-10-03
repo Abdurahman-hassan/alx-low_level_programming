@@ -87,13 +87,15 @@ int handle_files(char *src, char *dest)
  */
 int main(int argc, char *argv[])
 {
+	int status;
+
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
-	int status = handle_files(argv[1], argv[2]);
+	status = handle_files(argv[1], argv[2]);
 
 	if (status != 0)
 		exit(status);
