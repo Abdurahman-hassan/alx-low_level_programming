@@ -359,7 +359,8 @@ unsigned int _strspn(char *s, char *accept)
 {
 	unsigned int i, j, count = 0;
 
-	for (i = 0; s[i] != '\0'; i++) {
+	for (i = 0; s[i] != '\0'; i++)
+		{
 		int found = 0;  /* Flag to check if s[i] exists in accept*/
 
 		for (j = 0; accept[j] != '\0'; j++)
