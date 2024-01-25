@@ -1,0 +1,29 @@
+# This sets the CC variable to gcc, the compiler to be used.
+CC := gcc
+
+# This uses the wildcard function to get a list of all .c
+SRC := $(wildcard *.c)
+
+# This converts the list of .c files in SRC to a list of .o files, storing them in the OBJ variable.
+OBJ := $(SRC:.c=.o)
+
+# Sets the name of the executable to school.
+NAME := school
+
+# The all rule depends on the NAME target.
+all: $(NAME)
+
+# This rule states that to build NAME, all the .o files in OBJ are needed. If any .o file is outdated
+# (i.e., its corresponding .c file has been changed), it will be recompiled.
+$(NAME): $(OBJ)
+	$(CC) $^ -o $@
+
+# %.o: %.c This is a pattern rule that tells make how to build a .o file from a .c file.
+# $(CC) -c -o $@ $<: This command compiles each .c file into an .o file. $@ is the target file (the .o file),
+# and $< is the first prerequisite (the .c file).
+%.o: %.c
+	$(CC) -c -o $@ $<
+
+# This phony target is used to clean up the workspace by removing all the .o files and the executable school.
+clean:
+	rm -f $(OBJ) $(NAME)
