@@ -1,31 +1,23 @@
-# Variables
 CC = gcc
 SRC = main.c school.c
 NAME = school
 CFLAGS = -Wall -Werror -Wextra -pedantic
 RM = rm -f
 
-# Default goal
 all: $(NAME)
 
-# Special built-in target for .c files
 $(NAME): $(SRC) m.h
 	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
 
-# Rule for cleaning temporary Emacs and Vim files and the executable
 clean:
 	-$(RM) *~
 
-# Rule for deleting object files
 oclean:
 	-$(RM) $(SRC:.c=.o)
 
-# Rule for full clean (temporary files, executable, object files)
 fclean: clean oclean
 	-$(RM) $(NAME)
 
-# Rule for recompilation
 re: fclean all
 
-# Phony targets
 .PHONY: all clean fclean oclean re
