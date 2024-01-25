@@ -1,23 +1,27 @@
+# Variables
 CC = gcc
 SRC = main.c school.c
+OBJ = $(SRC:.c=.o)
 NAME = school
 CFLAGS = -Wall -Werror -Wextra -pedantic
-RM = rm -f
 
-all: $(NAME)
+# Phony targets for make commands
+.PHONY: all clean oclean fclean re
 
-$(NAME): $(SRC) m.h
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+# Build the executable
+all: m.h $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
 
+# Remove temporary files and the executable
 clean:
-	-$(RM) *~
+	$(RM) *~ $(NAME)
 
+# Remove object files
 oclean:
-	-$(RM) $(SRC:.c=.o)
+	$(RM) $(OBJ)
 
+# Full clean (temporary files, executable, object files)
 fclean: clean oclean
-	-$(RM) $(NAME)
 
-re: fclean all
-
-.PHONY: all clean fclean oclean re
+# Force recompilation
+re: oclean all
